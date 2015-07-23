@@ -34,13 +34,20 @@ COPY modified/interface_server.py owtf/framework/interface/
 RUN ["mv", "-f", "owtf/framework/interface/interface_server.py", "owtf/framework/interface/server.py"]
 
 #optional tools for OWTF
-RUN ["/bin/sh", "optional_tools.sh"]
+#RUN ["/bin/sh", "optional_tools.sh"]
+COPY optional_tools.sh /usr/local/bin
 
 #cert-fix
 RUN mkdir /.owtf ; cp -r /root/.owtf/* /.owtf/
 
 EXPOSE 8009 8008
 
+#set entrypoint
+COPY owtf_entry.sh /usr/local/bin/
+ENTRYPOINT ["/usr/local/bin/owtf_entry.sh"]
+
 # cleanup
 RUN rm packages.sh owtf.pip
-CMD ["python", "owtf/owtf.py"]
+#copy executable
+COPY owtf.py /usr/local/bin/
+#CMD ["python", "owtf/owtf.py"]
