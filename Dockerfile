@@ -39,10 +39,16 @@ RUN rm packages.sh owtf.pip
 COPY optional_tools.sh /usr/bin/
 RUN chmod +x /usr/bin/optional_tools.sh
 
+#setup postgres
+USER postgres
+RUN    /etc/init.d/postgresql start
+VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+
+ENV USER root
+USER root
+
 #set entrypoint
 COPY owtf_entry.sh /usr/bin/
 RUN chmod +x /usr/bin/owtf_entry.sh
-
-ENV USER root
 
 ENTRYPOINT ["/usr/bin/owtf_entry.sh"]
