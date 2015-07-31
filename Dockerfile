@@ -30,7 +30,7 @@ COPY modified/dbmodify.py owtf/scripts/
 COPY modified/interface_server.py owtf/framework/interface/
 RUN ["mv", "-f", "owtf/framework/interface/interface_server.py", "owtf/framework/interface/server.py"]
 
-EXPOSE 8009 8008
+EXPOSE 8010 8009 8008
 
 # cleanup
 RUN rm packages.sh owtf.pip
@@ -41,6 +41,7 @@ RUN chmod +x /usr/bin/optional_tools.sh
 #set entrypoint
 COPY owtf_entry.sh /usr/bin/
 RUN chmod +x /usr/bin/owtf_entry.sh
+COPY modified/server.py owtf/framework/interface/server.py
 
 ENV USER root
 
