@@ -12,7 +12,7 @@ function parse_arg {
 
   if [[ "$1" == "--update" ]] || [[ "$1" == "-u" ]]; then
     echo "Installing optional dependencies ..." >&2
-    /bin/bash /usr/bin/optional_tools.sh
+    /bin/bash $OWTF_OPTIONAL_TOOLS
     echo "OWTF optional dependencies were successfully installed" >&2
   fi
 
@@ -28,7 +28,7 @@ if [ $# -gt 0 ]; then
 fi
 
 # Start postgres server and configure db.
-/bin/bash owtf/scripts/postgres_entry.sh
+/bin/bash $POSTGRES_ENTRY owtf
 
 # Run owtf.
 python owtf/owtf.py
