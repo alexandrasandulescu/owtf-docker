@@ -13,6 +13,12 @@ COPY owtf.pip /
 RUN ["pip", "install", "--upgrade", "pip"]
 RUN ["pip", "install", "--upgrade", "-r", "owtf.pip"]
 
+COPY optional_tools.sh /usr/bin/
+RUN chmod +x /usr/bin/optional_tools.sh
+#
+RUN apt-get update
+RUN /bin/bash /usr/bin/optional_tools.sh
+
 #Kali SSL lib-fix
 ENV PYCURL_SSL_LIBRARY openssl
 
@@ -35,8 +41,8 @@ EXPOSE 8010 8009 8008
 # cleanup
 RUN rm packages.sh owtf.pip
 
-COPY optional_tools.sh /usr/bin/
-RUN chmod +x /usr/bin/optional_tools.sh
+#COPY optional_tools.sh /usr/bin/
+#RUN chmod +x /usr/bin/optional_tools.sh
 
 #setup postgres
 USER postgres
