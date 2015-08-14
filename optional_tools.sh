@@ -10,4 +10,5 @@ apt-get install -y theharvester \
                    wpscan \
                    wapiti \
                    waffit \
+                   whatweb \
                    hydra

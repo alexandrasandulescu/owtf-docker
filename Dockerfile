@@ -16,8 +16,15 @@ RUN ["pip", "install", "--upgrade", "-r", "owtf.pip"]
 #Kali SSL lib-fix
 ENV PYCURL_SSL_LIBRARY openssl
 
+RUN apt-get update --fix-missing
+COPY optional_tools.sh /usr/bin/
+RUN chmod +x /usr/bin/optional_tools.sh
+
+
+RUN /bin/bash /usr/bin/optional_tools.sh
+
 #download latest OWTF
-RUN git clone -b develop https://github.com/owtf/owtf.git
+RUN git clone -b fix_msfcli https://github.com/alexandrasandulescu/owtf.git
 RUN mkdir owtf/tools/restricted
 # allow access to the web ui from outside
 COPY framework_config.cfg.patch owtf/
@@ -35,8 +42,8 @@ EXPOSE 8010 8009 8008
 # cleanup
 RUN rm packages.sh owtf.pip
 
-COPY optional_tools.sh /usr/bin/
-RUN chmod +x /usr/bin/optional_tools.sh
+#COPY optional_tools.sh /usr/bin/
+#RUN chmod +x /usr/bin/optional_tools.sh
 
 #setup postgres
 USER postgres

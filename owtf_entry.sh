@@ -39,6 +39,7 @@ fi
 
 # Start postgres server and configure db.
 /bin/bash owtf/scripts/postgres_entry.sh
+apt-get install -y metasploit whatweb
 
 # Run owtf.
 python owtf/owtf.py
